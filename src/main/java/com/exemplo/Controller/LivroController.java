@@ -46,4 +46,31 @@ public class LivroController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        try {
+            livroService.delete(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Livro> update(@PathVariable Integer id, @RequestBody Livro livro) {
+        try {
+            var updatedLivro = livroService.update(id, livro);
+            return new ResponseEntity<>(updatedLivro, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/listAll")
+    public ResponseEntity<List<Livro>> listAll() {
+        try {
+            var result = livroService.findAll();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

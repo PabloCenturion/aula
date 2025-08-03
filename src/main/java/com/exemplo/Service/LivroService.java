@@ -17,14 +17,23 @@ public class LivroService {
         return livroRepository.findAll();
     }
 
+    public Livro save(Livro livro){return livroRepository.save(livro);}
 
-    public Livro save(Livro livro){
-        return livroRepository.save(livro);
-    }
+    public Livro findById(Integer id){return livroRepository.findById(id).orElseThrow(EntityNotFoundException::new);}
 
-    public Livro findById(Integer id){
-        return livroRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-    }
+
+    public Livro update(Integer id, Livro livro) {
+        Livro livroExistente = findById(id);
+        livroExistente.setTítulo(livro.getTítulo());
+        livroExistente.setAutor(livro.getAutor());
+        livroExistente.setTema(livro.getTema());
+        return livroRepository.save(livroExistente);}
+
+    public void delete(Integer id){
+        Livro livro = findById(id);
+        livroRepository.delete(livro);}
+
+
 }
 
 
