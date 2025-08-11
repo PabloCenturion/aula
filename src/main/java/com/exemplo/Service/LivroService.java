@@ -24,8 +24,7 @@ public class LivroService {
 
     public Livro update(Integer id, Livro livro) {
         Livro livroExistente = findById(id);
-        livroExistente.setTítulo(livro.getTítulo());
-        livroExistente.setAutor(livro.getAutor());
+        livroExistente.setTitulo(livro.getTitulo());
         livroExistente.setTema(livro.getTema());
         return livroRepository.save(livroExistente);}
 

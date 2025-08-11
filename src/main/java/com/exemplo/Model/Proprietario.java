@@ -1,31 +1,20 @@
 package com.exemplo.Model;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
+public class Proprietario {
 
-public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nome;
-    private String cpf;
-    private Integer idade;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getNome() {
         return nome;
@@ -43,15 +32,10 @@ public class Autor {
         this.cpf = cpf;
     }
 
-    public Integer getIdade() {
-        return idade;
-    }
+    private String nome;
+    private String cpf;
 
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
-    @OneToMany(mappedBy = "autor")
-    @JsonIgnoreProperties("autor") // Evita loop de serialização
+    @ManyToMany(mappedBy = "proprietarios")
+    @JsonIgnoreProperties("proprietarios")
     private List<Livro> livros;
 }

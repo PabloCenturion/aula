@@ -1,18 +1,12 @@
 package com.exemplo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.ValueGenerationType;
-import lombok.*;
 
-import java.awt.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -59,5 +53,9 @@ public class Editora {
     }
 
     private String telefone;
+
+    @OneToMany(mappedBy = "editora")
+    @JsonIgnoreProperties("editora") // evita loop na serialização JSON
+    private List<Livro> livros;
 }
 
